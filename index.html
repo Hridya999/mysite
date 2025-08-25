@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Your Name | Portfolio</title>
+
+<!-- FontAwesome for Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+  /* Reset & base */
+  *{margin:0;padding:0;box-sizing:border-box;font-family:Arial, sans-serif;}
+  html{scroll-behavior:smooth;}
+  body{color:#111;background:#fff;}
+  a{text-decoration:none;color:#fff;}
+  section{padding:80px 5%; scroll-margin-top:80px;} /* prevents fixed nav overlap */
+
+  /* Navigation */
+  nav{
+    width:100%;
+    position:fixed;
+    top:0; left:0;
+    display:flex; justify-content:center;
+    background:rgba(0,0,0,0.4);
+    z-index:1000;
+    backdrop-filter: saturate(120%) blur(6px);
+  }
+  nav ul{display:flex; list-style:none; flex-wrap:wrap; justify-content:center; align-items:center;}
+  nav ul li{margin:10px;}
+  nav ul li a{color:#fff; font-weight:bold; padding:10px 14px; border-radius:6px; font-size:0.95rem;}
+  nav ul li a:hover{background:rgba(255,255,255,0.2);}
+
+  /* Full-screen header (keep your visual) */
+  header{
+    width:100%; height:100vh; position:relative; overflow:hidden;
+    display:flex; align-items:center; justify-content:center; text-align:center; color:#fff;
+    padding:0 15px;
+  }
+  header::after{
+    content:"";
+    position:absolute; inset:0; background:rgba(0,0,0,0.5);
+  }
+  header .hero-bg{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;
+  }
+  header .content{
+    position:relative; z-index:1; max-width:1200px;
+  }
+  header h1{font-size:3rem; margin-bottom:12px;}
+  header p{font-size:1.2rem; margin-bottom:22px;}
+  header .btn{
+    display:inline-block; padding:12px 25px; background:#0ea5e9; color:#fff; border-radius:8px; font-size:1rem;
+  }
+  header .btn:hover{background:#0369a1;}
+
+  /* About */
+  #about{background:#f7f7f7;color:#111;}
+  #about h2{font-size:2rem;margin-bottom:20px;text-align:center;}
+  #about p{line-height:1.8;color:#333;max-width:900px;margin:0 auto 18px auto;}
+  .about-stats{display:flex; gap:30px; justify-content:center; text-align:center; margin-top:20px; flex-wrap:wrap;}
+  .about-stats h2{font-size:2rem; color:#0ea5e9; margin:0;}
+
+  /* Skills */
+  #skills{background:#fff;}
+  #skills h2{font-size:2rem; text-align:center; margin-bottom:25px;}
+  .skills-grid{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;}
+  .skill{flex:1 1 200px;max-width:360px;background:#fff;padding:20px;border-radius:10px;text-align:left;box-shadow:0 4px 10px rgba(0,0,0,0.05);}
+  .skill h3{margin-bottom:10px;font-size:1.1rem;color:#111;}
+  .bar{width:100%;height:12px;background:#e5e7eb;border-radius:8px;overflow:hidden;margin-bottom:5px;}
+  .bar .fill{height:100%;background:#0ea5e9;border-radius:8px 0 0 8px;}
+  .skill span{font-size:0.9rem;color:#111;font-weight:bold;}
+
+  /* Projects */
+  #projects{background:#f7f7f7;}
+  #projects h2{text-align:center; font-size:2.2rem; margin-bottom:30px;}
+  .projects-grid{display:flex; flex-wrap:wrap; gap:30px; justify-content:center;}
+  .project-card{flex:0 0 300px;background:#fff;border-radius:15px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,0.1);text-decoration:none;color:#111;transition:transform 0.3s,box-shadow 0.3s;}
+  .project-card img{width:100%;height:180px;object-fit:cover;}
+  .project-card:hover{transform:translateY(-10px);box-shadow:0 10px 25px rgba(0,0,0,0.2);}
+
+  /* Website Templates (kept your hover/scroll effect) */
+  #website-templates{padding:80px 5%; background:#f9f9f9;}
+  #website-templates h2{text-align:center; font-size:2.8rem; margin-bottom:50px; color:#222;}
+  .templates-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:30px; max-width:1200px; margin:auto;}
+  .template-card{position:relative; overflow:hidden; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.1); height:250px; cursor:pointer;}
+  .template-card img{width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.5s ease-in-out;}
+  .template-card:hover img{transform:translateY(-25%);}
+  .template-card .overlay{position:absolute; inset:0; background:rgba(0,0,0,0.6); color:white; display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity 0.3s;}
+  .template-card:hover .overlay{opacity:1;}
+
+  /* Contact */
+  #contact{padding:100px 5%; background:#f8fafc;}
+  .contact-grid{max-width:1100px; margin:auto; display:grid; grid-template-columns:1fr 1fr; gap:50px;}
+  .contact-card, form{background:#fff; padding:25px; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.08);}
+  form input, form textarea{width:100%; padding:14px; margin-bottom:15px; border:1px solid #ddd; border-radius:6px;}
+  form button{width:100%; padding:14px; background:#0ea5e9; border:none; color:white; font-size:1rem; border-radius:6px; font-weight:600; cursor:pointer; transition:0.3s;}
+  form button:hover{background:#0369a1;}
+
+  /* Footer */
+  footer{background:#111;color:#fff;text-align:center;padding:20px;}
+  footer a{color:#0ea5e9;}
+
+  /* RESPONSIVE */
+  @media (max-width:1024px){
+    header h1{font-size:2.5rem;}
+    header p{font-size:1.05rem;}
+    nav ul li a{font-size:0.9rem;}
+  }
+  @media (max-width:768px){
+    section{padding:60px 5%;}
+    header h1{font-size:2.2rem;}
+    header p{font-size:1rem;}
+    header .btn{padding:10px 20px;font-size:0.9rem;}
+    .projects-grid,.skills-grid{justify-content:center;}
+    .contact-grid{grid-template-columns:1fr; gap:25px;}
+    .templates-grid{grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}
+  }
+  @media (max-width:480px){
+    section{padding:50px 5%;}
+    header h1{font-size:1.8rem;}
+    header p{font-size:0.9rem;}
+    header .btn{padding:8px 16px;font-size:0.85rem;}
+    nav ul li{margin:6px;}
+    nav ul li a{padding:8px 10px;font-size:0.82rem;}
+    .template-card{height:220px;}
+  }
+  .templates-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.template-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.image-container {
+  height: 250px; /* fixed display height */
+  overflow: hidden;
+}
+
+.image-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transform: translateY(0);
+  transition: transform 5s linear; /* smooth scroll effect */
+}
+
+.template-card:hover .image-container img {
+  transform: translateY(-50%); /* scroll up image */
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  padding: 15px;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.template-card:hover .overlay {
+  opacity: 1;
+}
+
+.demo-btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  background: #ff5722;
+  color: #fff;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.demo-btn:hover {
+  background: #e64a19;
+}
+
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <!-- fixed anchor target below without changing the visible label -->
+    <li><a href="#website-templates">Website Templates</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- Header -->
+<header>
+  <!-- Your background image element -->
+  <img class="hero-bg" src="images/ui.jpg" alt="Cover Image" />
+   <div class="content">
+    <h1 style="color:black;">HRIDYA PT</h1>
+
+    <p style="color:black;">UI/UX Designer & Web Developer creating full-screen experiences</p>
+    <a href="#projects" class="btn">View Projects</a>
+  </div>
+ 
+</header>
+
+
+<!-- About -->
+<section id="about">
+  <h2>About Me</h2>
+  <p>
+    I am a passionate Web Developer and UI Designer, dedicated to building responsive, modern websites that combine functionality with aesthetic appeal. 
+    I focus on creating seamless user experiences and visually clean interfaces.
+  </p>
+  <p>
+    My work spans multiple domains including hotel booking platforms, corporate landing pages, and e-commerce solutions. I continuously strive to enhance 
+    my skills in frontend technologies, design systems, and responsive web design.
+  </p>
+
+  <div class="about-stats">
+    <div>
+      <h2>35+</h2>
+      <p style="color:#333;">Projects Completed</p>
+    </div>
+    <div>
+      <h2>12+</h2>
+      <p style="color:#333;">Design Systems</p>
+    </div>
+    <div>
+      <h2>5</h2>
+      <p style="color:#333;">Design Awards</p>
+    </div>
+  </div>
+</section>
+
+<!-- Skills -->
+<section id="skills">
+  <h2>Skills</h2>
+  <div class="skills-grid">
+    <div class="skill">
+      <h3>HTML</h3>
+      <div class="bar"><div class="fill" style="width:95%"></div></div>
+      <span>95%</span>
+    </div>
+    <div class="skill">
+      <h3>CSS</h3>
+      <div class="bar"><div class="fill" style="width:90%"></div></div>
+      <span>90%</span>
+    </div>
+    <div class="skill">
+      <h3>Flutter</h3>
+      <div class="bar"><div class="fill" style="width:85%"></div></div>
+      <span>60%</span>
+    </div>
+    <div class="skill">
+      <h3>Python</h3>
+      <div class="bar"><div class="fill" style="width:80%"></div></div>
+      <span>50%</span>
+    </div>
+  </div>
+</section>
+
+<!-- Projects -->
+<section id="projects" style="background:url('images/we are.jpg') no-repeat center center/cover;">
+  <h2>Projects</h2>
+
+  <div class="projects-grid">
+    <!-- Project Card 1 -->
+    <a href="https://example.com/hotel-booking" target="_blank" class="project-card">
+      <img src="images/hotelbooking.jpg" alt="Hotel Booking">
+      <div style="padding:15px;">
+        <h3 style="margin-bottom:10px;">Hotel Booking Website(IBM)</h3>
+        <p style="font-size:0.9rem; color:#555;">Full-featured hotel booking site built with React and Node.js</p>
+      </div>
+    </a>
+
+    <!-- Project Card 2 -->
+    <a href="https://example.com/ayurveda-resort" target="_blank" class="project-card">
+      <img src="images/ayurvedaresort.webp" alt="Ayurveda Resort">
+      <div style="padding:15px;">
+        <h3 style="margin-bottom:10px;">Ayurveda Resort Website</h3>
+        <p style="font-size:0.9rem; color:#555;">Responsive landing page with booking & package showcase</p>
+      </div>
+    </a>
+
+    <!-- Project Card 3 -->
+    <a href="https://example.com/company-landing" target="_blank" class="project-card">
+      <img src="images/landdding_page.jpeg" alt="Company Landing">
+      <div style="padding:15px;">
+        <h3 style="margin-bottom:10px;">Company Landing Page</h3>
+        <p style="font-size:0.9rem; color:#555;">Clean modern landing page with product showcase and contact</p>
+      </div>
+    </a>
+
+    <!-- Project Card 4 -->
+    <a href="https://example.com/company-landing" target="_blank" class="project-card">
+      <img src="images/taskmanagement.jpg" alt="Task Management">
+      <div style="padding:15px;">
+        <h3 style="margin-bottom:10px;">Task Management Dashboard</h3>
+        <p style="font-size:0.9rem; color:#555;">Clean modern landing page with product showcase and contact</p>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- Website Templates -->
+<section id="website-templates">
+  <h2>Website Templates</h2>
+
+  <div class="templates-grid">
+    <!-- Card 1 -->
+    <div class="template-card">
+      <div class="image-container">
+        <img src="images/Packages.png" alt="Hotel Booking Template">
+      </div>
+      <div class="overlay">
+        <p>Hotel Booking Website – Responsive and modern booking system</p>
+        <a href="#" class="demo-btn">View Demo</a>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="template-card">
+      <div class="image-container">
+        <img src="images/dashboard.png" alt="Ayurveda Resort Template">
+      </div>
+      <div class="overlay">
+        <p>Ayurveda Resort Website – Elegant wellness experience</p>
+        <a href="#" class="demo-btn">View Demo</a>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="template-card">
+      <div class="image-container">
+        <img src="images/drzzz.png" alt="Another Template">
+      </div>
+      <div class="overlay">
+        <p>Ayurveda Resort Website – Elegant wellness experience</p>
+        <a href="#" class="demo-btn">View Demo</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Contact -->
+<section id="contact">
+  <div class="contact-grid">
+    <!-- Left: Info -->
+    <div>
+      <h2 style="font-size:2.2rem; margin-bottom:20px; color:#0f172a;">Let’s Connect</h2>
+      <p style="margin-bottom:25px; color:#475569;">I’m open to freelance projects, collaborations, or full-time opportunities. Reach out and let’s build something great together!</p>
+
+      <div style="margin-bottom:25px; line-height:2;">
+        <p><i class="fa-solid fa-envelope" style="color:#0ea5e9; margin-right:10px;"></i> 
+          <a href="mailto:hridhyarajeev244@gmail.com" style="color:#0f172a; text-decoration:none;">hridhyarajeev244@gmail.com</a>
+        </p>
+        <p><i class="fa-solid fa-phone" style="color:#0ea5e9; margin-right:10px;"></i> +91 7306229766</p>
+        <p><i class="fa-solid fa-location-dot" style="color:#0ea5e9; margin-right:10px;"></i> Kochi, India</p>
+      </div>
+
+      <div style="display:flex; gap:15px; margin-top:15px;">
+        <a href="https://github.com/yourusername" target="_blank" 
+           style="background:#333; color:white; font-size:1.2rem; width:45px; height:45px; display:flex; align-items:center; justify-content:center; border-radius:50%; transition:0.3s;">
+          <i class="fa-brands fa-github"></i>
+        </a>
+        <a href="https://linkedin.com/in/yourusername" target="_blank" 
+           style="background:#0a66c2; color:white; font-size:1.2rem; width:45px; height:45px; display:flex; align-items:center; justify-content:center; border-radius:50%; transition:0.3s;">
+          <i class="fa-brands fa-linkedin"></i>
+        </a>
+        <a href="https://twitter.com/yourusername" target="_blank" 
+           style="background:#1da1f2; color:white; font-size:1.2rem; width:45px; height:45px; display:flex; align-items:center; justify-content:center; border-radius:50%; transition:0.3s;">
+          <i class="fa-brands fa-twitter"></i>
+        </a>
+        <a href="mailto:hridhyarajeev244@gmail.com" target="_blank" 
+           style="background:#ea4335; color:white; font-size:1.2rem; width:45px; height:45px; display:flex; align-items:center; justify-content:center; border-radius:50%; transition:0.3s;">
+          <i class="fa-solid fa-envelope"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Right: Form -->
+    <div class="contact-card">
+      <form onsubmit="alert('Form submitted!');return false;">
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
+        <textarea placeholder="Your Message" required style="height:120px;"></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  &copy; 2025 Your Name. All rights reserved.
+</footer>
+
+<script>
+  /* Hover scroll for template cards (kept) */
+  document.querySelectorAll('.template-card').forEach(card => {
+    const img = card.querySelector('img');
+    card.addEventListener('mouseenter', () => {
+      const scrollAmount = img.scrollHeight - card.clientHeight;
+      if (scrollAmount > 0) {
+        img.style.transition = 'transform 1s ease-in-out';
+        img.style.transform = `translateY(-${scrollAmount}px)`;
+      }
+    });
+    card.addEventListener('mouseleave', () => {
+      img.style.transform = 'translateY(0)';
+    });
+  });
+
+  /* Safe-guard: remove errors from the old slider snippet if present */
+  (function(){
+    const slides = document.querySelector('.slides');
+    const nextBtn = document.getElementById('next');
+    const prevBtn = document.getElementById('prev');
+    if (slides && nextBtn && prevBtn) {
+      const slideCount = slides.children.length;
+      let index = 0;
+      nextBtn.addEventListener('click', ()=> {
+        index = (index+1)%slideCount;
+        slides.style.transform = `translateX(-${index*100}%)`;
+      });
+      prevBtn.addEventListener('click', ()=> {
+        index = (index-1+slideCount)%slideCount;
+        slides.style.transform = `translateX(-${index*100}%)`;
+      });
+    }
+  })();
+</script>
+
+</body>
+</html>
+
+
