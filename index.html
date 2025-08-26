@@ -88,14 +88,27 @@
   .template-card:hover img{transform:translateY(-25%);}
   .template-card .overlay{position:absolute; inset:0; background:rgba(0,0,0,0.6); color:white; display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity 0.3s;}
   .template-card:hover .overlay{opacity:1;}
-  #website-templates {
-  margin: 20px 0;   /* reduce top/bottom space */
-  padding: 20px 0;  /* optional: control inner spacing */
+#website-templates {
+  margin: 40px 0;   /* reduce spacing before/after the section */
+  padding: 20px 0;  /* optional inner spacing */
 }
 
 #website-templates h2 {
-  margin: 10px 0;   /* reduce spacing around heading */
+  margin-bottom: 20px; /* reduce space below heading */
 }
+.templates-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* responsive */
+  gap: 20px; /* spacing between cards */
+}
+
+.template-card {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
 
 
   /* Contact */
@@ -195,6 +208,25 @@
 
 .demo-btn:hover {
   background: #e64a19;
+}
+.demo-btn-wrapper {
+  text-align: center;   /* centers inline elements like <a> */
+  margin-top: 10px;     /* optional spacing */
+}
+
+.demo-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #1da1f2;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+}
+.overlay {
+  display: flex;
+  justify-content: center; /* horizontal center */
+  align-items: center;     /* vertical center */
+  flex-direction: column;  /* keep text above, button below */
 }
 
 </style>
@@ -337,7 +369,11 @@
       </div>
       <div class="overlay">
         <p>Hotel Booking Website – Responsive and modern booking system</p>
-        <a href="#" class="demo-btn">View Demo</a>
+        <div class="demo-btn-wrapper">
+  <a href="images/Packages.png" class="demo-btn" target="_blank">View Demo</a>
+</div>
+
+
       </div>
     </div>
 
@@ -348,7 +384,9 @@
       </div>
       <div class="overlay">
         <p>Ayurveda Resort Website – Elegant wellness experience</p>
-        <a href="#" class="demo-btn">View Demo</a>
+       <div class="demo-btn-wrapper">
+  <a href="images/dashboard.png" class="demo-btn" target="_blank">View Demo</a>
+</div>
       </div>
     </div>
 
@@ -359,7 +397,9 @@
       </div>
       <div class="overlay">
         <p>Ayurveda Resort Website – Elegant wellness experience</p>
-        <a href="#" class="demo-btn">View Demo</a>
+        <div class="demo-btn-wrapper">
+  <a href="images/drzzz.png" class="demo-btn" target="_blank">View Demo</a>
+</div>
       </div>
     </div>
      <div class="template-card">
@@ -368,7 +408,9 @@
       </div>
       <div class="overlay">
         <p>Ayurveda Resort Website – Elegant wellness experience</p>
-        <a href="#" class="demo-btn">View Demo</a>
+        <div class="demo-btn-wrapper">
+  <a href="images/IBM.png" class="demo-btn" target="_blank">View Demo</a>
+</div>
       </div>
     </div>
      <div class="template-card">
@@ -377,7 +419,9 @@
       </div>
       <div class="overlay">
         <p>Ayurveda Resort Website – Elegant wellness experience</p>
-        <a href="#" class="demo-btn">View Demo</a>
+        <div class="demo-btn-wrapper">
+  <a href="images/AYUSH.png" class="demo-btn" target="_blank">View Demo</a>
+</div>
       </div>
     </div>
      <div class="template-card">
@@ -386,7 +430,9 @@
       </div>
       <div class="overlay">
         <p>Ayurveda Resort Website – Elegant wellness experience</p>
-        <a href="#" class="demo-btn">View Demo</a>
+        <div class="demo-btn-wrapper">
+  <a href="images/FECILITY.png" class="demo-btn" target="_blank">View Demo</a>
+</div>
       </div>
     </div>
   </div>
